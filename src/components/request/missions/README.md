@@ -9,8 +9,8 @@ This directory includes missions request related components.
 
 
 * Components like:
-    * mt1.
-    * mt2.
+    * mt1_mission.
+    * mt2_mission.
   
 
 * Component related initialize functions.
