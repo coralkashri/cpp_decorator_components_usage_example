@@ -1,0 +1,56 @@
+{
+  "missionId": 5,
+  "pc": {
+    "ip": "0.0.1.0"
+  },
+  "missionType": "mt_container",
+  "missionParams": {
+    "related_missions": [
+      {
+        "missionId": 6,
+        "pc": {
+          "ip": "0.0.1.0"
+        },
+        "missionType": "mt1",
+        "missionParams": {
+          "param1": "element",
+          "param2": 89
+        }
+      },
+      {
+        "missionId": 7,
+        "pc": {
+          "ip": "0.0.1.0"
+        },
+        "missionType": "mt2",
+        "missionParams": {
+          "p1": 1,
+          "p2": 2,
+          "p3": 3
+        }
+      },
+      {
+        "missionId": 7,
+        "pc": {
+          "ip": "0.0.1.0"
+        },
+        "missionType": "mt3",
+        "missionParams": {
+          "param1": "my param",
+          "param2": 67.6
+        }
+      },
+      {
+        "missionId": 7,
+        "pc": {
+          "ip": "0.0.1.0"
+        },
+        "missionType": "mt4",
+        "missionParams": {
+          "param1": "special param",
+          "param2": 13.25
+        }
+      }
+    ]
+  }
+}
