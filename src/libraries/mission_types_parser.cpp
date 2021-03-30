@@ -4,9 +4,9 @@
 namespace libraries {
 
 	const std::map<mission_types_parser::mission_names, std::type_index> mission_types_parser::components_mapper = {
-			{mission_names::MT1,          typeid(components::request::missions::mt1_mission)},
-			{mission_names::MT2,          typeid(components::request::missions::mt2_mission)},
-			{mission_names::MT_CONTAINER, typeid(components::request::missions::mt_container_mission)},
+			{mission_names::MT1,          typeid(components_request_missions_mt1_mission)},
+			{mission_names::MT2,          typeid(components_request_missions_mt2_mission)},
+			{mission_names::MT_CONTAINER, typeid(components_request_missions_mt_container_mission)},
 	};
 
 	const std::map<std::string, mission_types_parser::mission_names> mission_types_parser::names_mapper = {

@@ -8,30 +8,30 @@
 #include "structures/parent_id.h"
 #include "structures/parent_ip.hpp"
 
-namespace components::request::missions::basic {
+//namespace components::request::missions::basic {
 
 	template <std::std_basic_fixed_string Hierarchy>
-    using ip = single<std::size_t, false, functions::ip_func<Hierarchy>>;
+    using components_request_missions_basic_ip = components_request_single<std::size_t, false, components_request_missions_functions_ip_func<Hierarchy>>;
 
-	using mission_ip = ip<"pc">;
+	using components_request_missions_basic_mission_ip = components_request_missions_basic_ip<"pc">;
 
-    using id = single<std::size_t, false, functions::id_func>;
+    using components_request_missions_basic_id = components_request_single<std::size_t, false, components_request_missions_functions_id_func>;
 
-    using parent_id = non_json_single<structures::parent_id>;
+    using components_request_missions_basic_parent_id = components_request_non_json_single<components_request_structures_parent_id>;
 
-    using parent_ip = non_json_single<structures::parent_ip>;
+    using components_request_missions_basic_parent_ip = components_request_non_json_single<components_request_structures_parent_ip>;
 
-    using parent_data = group<parent_id, parent_ip>;
+    using components_request_missions_basic_parent_data = components_request_group<components_request_missions_basic_parent_id, components_request_missions_basic_parent_ip>;
 
-    using mission_id = single<std::size_t, false, functions::mission_id_func>;
+    using components_request_missions_basic_mission_id = components_request_single<std::size_t, false, components_request_missions_functions_mission_id_func>;
 
-    using mission_type = single<libraries::mission_types_parser::mission_names, false, functions::mission_type_func>;
+    using components_request_missions_basic_mission_type = components_request_single<libraries::mission_types_parser::mission_names, false, components_request_missions_functions_mission_type_func>;
 
-    namespace dependency_md {
+    namespace components_request_missions_basic_dependency_md {
         template<typename T>
         using collection_t = std::vector<T>;
 
-        using dependency = group<id, ip<"">>;
+        using dependency = components_request_group<components_request_missions_basic_id, components_request_missions_basic_ip<"">>;
 
         using single_component_name = dependency;
 
@@ -40,33 +40,33 @@ namespace components::request::missions::basic {
         constexpr char field_name[] = "dependencies";
 
         template<bool IsOptional = false, std::std_basic_fixed_string field_hierarchy = "">
-        using dependencies = request::collection<
+        using dependencies = components_request_collection<
                 single_component_name,
                 collection_t,
                 IsOptional,
-                functions::general_collection_func<collection_t<single_component_name>, field_name>,
+		        components_request_missions_functions_general_collection_func<collection_t<single_component_name>, field_name>,
                 field_name,
                 field_hierarchy, field_hierarchy>;
     }
 
-    using mission_identifier = dependency_md::dependency;
+    using components_request_missions_basic_mission_identifier = components_request_missions_basic_dependency_md::dependency;
 
-    using mt1 = single<structures::mt1, true, functions::mt1_func>;
+    using components_request_missions_basic_mt1 = components_request_single<components_request_structures_mt1, true, components_request_missions_functions_mt1_func>;
 
-    using mt2 = single<structures::mt2, false, functions::mt2_func>;
+    using components_request_missions_basic_mt2 = components_request_single<components_request_structures_mt2, false, components_request_missions_functions_mt2_func>;
 
-    template<Component ...Components>
-    using mission = group<
+    template<components_request_Component ...Components>
+    using components_request_missions_basic_mission = components_request_group<
             // Non Json Components
-		    parent_data,
+            components_request_missions_basic_parent_data,
 
             // Json Components
-            mission_id,
-		    mission_ip,
-            mission_type,
-            dependency_md::dependencies<true>,
+            components_request_missions_basic_mission_id,
+			components_request_missions_basic_mission_ip,
+			components_request_missions_basic_mission_type,
+		    components_request_missions_basic_dependency_md::dependencies<true>,
             Components...
     >;
-}
+//}
 
 #endif //CPP_DECORATOR_COMPONENTS_USAGE_EXAMPLE_MISSION_BASIC_COMPONENTS_H

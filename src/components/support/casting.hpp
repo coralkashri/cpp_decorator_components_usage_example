@@ -1,7 +1,7 @@
 #ifndef CPP_DECORATOR_COMPONENTS_USAGE_EXAMPLE_SRC_COMPONENTS_SUPPORT_CASTING_HPP
 #define CPP_DECORATOR_COMPONENTS_USAGE_EXAMPLE_SRC_COMPONENTS_SUPPORT_CASTING_HPP
 
-namespace components::support {
+//namespace components::support {
 
 	template <typename T>
 	concept CastingDerived = requires (T t) {
@@ -17,17 +17,17 @@ namespace components::support {
 	 *                  Purpose: To validate if the param was initialized or not.
 	 */
 	template <typename T, typename Derived>
-	class casting {
+	class components_support_casting {
 	public:
-		casting(T &param) : param(param) {}
-		casting(casting&&) = default;
-		casting(const casting&) = default;
-		casting& operator=(const casting &ref) {
+		components_support_casting(T &param) : param(param) {}
+		components_support_casting(components_support_casting&&) = default;
+		components_support_casting(const components_support_casting&) = default;
+		components_support_casting& operator=(const components_support_casting &ref) {
 			param = ref.param;
 			return *this;
 		}
 
-		virtual ~casting() = default;
+		virtual ~components_support_casting() = default;
 
 		operator T() const {
 			static_cast<const Derived&>(*this).validate_exists();
@@ -52,6 +52,6 @@ namespace components::support {
 	private:
 		T &param;
 	};
-}
+//}
 
 #endif //CPP_DECORATOR_COMPONENTS_USAGE_EXAMPLE_SRC_COMPONENTS_SUPPORT_CASTING_HPP

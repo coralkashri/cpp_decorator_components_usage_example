@@ -3,23 +3,23 @@
 
 #include "../../tools/concepts/concepts.h"
 
-namespace components::request::support {
+//namespace components::request::support {
 
-    template<typename Base, typename BaseCore, tools::Component<BaseCore> ...Components>
-    class group : virtual public tools::base_if_not_exists_t<BaseCore, Components...>,
+    template<typename Base, typename BaseCore, components_tools_Component<BaseCore> ...Components>
+    class components_request_support_group : virtual public components_tools_base_if_not_exists_t<BaseCore, Components...>,
                   public Components ... {
     private:
-        using this_t = group<Base, BaseCore, Components...>;
+        using this_t = components_request_support_group<Base, BaseCore, Components...>;
 
     public:
-        group() = default;
+	    components_request_support_group() = default;
 
-        group(const boost::property_tree::ptree &json) : Components(json)... {}
+	    components_request_support_group(const boost::property_tree::ptree &json) : Components(json)... {}
 
-        virtual ~group() = default;
+        virtual ~components_request_support_group() = default;
 
         [[nodiscard]] virtual std::shared_ptr<Base> clone() const {
-            return std::make_shared<group>(*this);
+            return std::make_shared<components_request_support_group>(*this);
         }
 
         bool operator==(const this_t &ref) const {
@@ -33,6 +33,6 @@ namespace components::request::support {
             return is_lower && first_to_lower <= first_to_bigger;
         }
     };
-}
+//}
 
 #endif //CPP_DECORATOR_COMPONENTS_USAGE_EXAMPLE_GROUP_H
