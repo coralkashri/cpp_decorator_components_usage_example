@@ -44,10 +44,9 @@ TEST (request_components, master_split) {
     EXPECT_EQ((size_t)components::tools::access_field<components::request::missions::basic::mission_id>(master_mission), 5);
 
     size_t iteration = 0;
-    // TODO REMOVE THIS PATCH!
-    for (auto &slave : json.get_child("missionParams.related_missions")) {
+    for (auto &related_mission_json : json.get_child("missionParams.related_missions")) {
         iteration++;
-	    components::request::interface_core* mission = new components::request::missions::mt2_mission(slave.second);
+	    components::request::interface_core* mission = new components::request::missions::mt2_mission(related_mission_json.second);
 	    auto mt2_mission = dynamic_cast<components::request::missions::mt2_mission*>(mission);
 
         // ID
@@ -93,25 +92,16 @@ TEST (request_components, json_parser) {
 	boost::property_tree::read_json("../tests/support_files/json_parser_container.json", json);
 
 	components::request::missions::basic::mission<> master_mission(json);
-
 	size_t iteration = 0;
-	// TODO REMOVE THIS PATCH!
-	for (auto &slave : json.get_child("missionParams.related_missions")) {
+	for (auto &related_mission_json : json.get_child("missionParams.related_missions")) {
 		iteration++;
-/* // The following section works
 		std::type_index t = typeid(nullptr);
-		components::request::interface_core* mission = libraries::json_parser::get_mission_component(t, slave.second);
-		auto mission_data = dynamic_cast<components::request::missions::basic::mission<>*>(mission);
-		auto mission_name_component = components::tools::access_field<components::request::missions::basic::mission_type>(mission_data);
-		auto mission_name = (libraries::mission_types_parser::mission_names&)(mission_name_component);
-		std::type_index actual_type = mission_types_parser::get_component(mission_name);
-		auto mission_name_from_type = mission_types_parser::get_mission_name(actual_type); // Get mission name by component std::type_index
-*/
-// TODO Make the following test working:
-		std::type_index t = typeid(nullptr);
-		components::request::interface_core* mission = libraries::json_parser::get_mission_component(t, slave.second);
+		components::request::interface_core* mission = libraries::json_parser::get_mission_component(t, related_mission_json.second);
+		auto basic_mission_data = dynamic_cast<components::request::missions::basic::mission<>*>(mission);
+		libraries::json_parser::foo(basic_mission_data);
 		auto mission_name_from_type = mission_types_parser::get_mission_name(t);
-// TODO End not working test section
+
+//		EXPECT_EQ((size_t)components::tools::access_field<components::request::missions::basic::mission_id>(basic_mission_data), 5 + iteration);
 
 		switch (iteration) {
 			case 1:

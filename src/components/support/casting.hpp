@@ -1,11 +1,20 @@
 #ifndef CPP_DECORATOR_COMPONENTS_USAGE_EXAMPLE_SRC_COMPONENTS_SUPPORT_CASTING_HPP
 #define CPP_DECORATOR_COMPONENTS_USAGE_EXAMPLE_SRC_COMPONENTS_SUPPORT_CASTING_HPP
 
+#include <type_traits>
+
 namespace components::support {
+	namespace detail {
+		template< class T, class U >
+		concept SameHelper = std::is_same_v<T, U>;
+	}
+
+	template< class T, class U >
+	concept same_as = detail::SameHelper<T, U> && detail::SameHelper<U, T>;
 
 	template <typename T>
 	concept CastingDerived = requires (T t) {
-		{ t.validate_exists() } -> std::same_as<void>;
+		{ t.validate_exists() } -> same_as<void>;
 	};
 
 	/**
